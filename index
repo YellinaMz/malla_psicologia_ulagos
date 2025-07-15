@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Malla Psicología Cute ULagos 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 20px;
+      background: #fff0f6;
+      color: #4a2c2a;
+    }
+    h1 {
+      text-align: center;
+      color: #d63384;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+    .semestre {
+      margin-bottom: 30px;
+      background: #ffe6f0;
+      border-radius: 20px;
+      padding: 15px 20px;
+      box-shadow: 0 4px 8px rgba(255, 192, 203, 0.3);
+    }
+    .semestre h2 {
+      color: #c2185b;
+      border-bottom: 2px dashed #f8bbd0;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+    .asignatura {
+      padding: 10px 15px;
+      border-radius: 15px;
+      background-color: #fce4ec;
+      border: 1px solid #f8bbd0;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .asignatura:hover {
+      background-color: #f8bbd0;
+      transform: scale(1.02);
+    }
+    .aprobado[data-nota="7"] { background-color: #ffe3f3 !important; }
+    .aprobado[data-nota="6"] { background-color: #ffd6ec !important; }
+    .aprobado[data-nota="5"] { background-color: #ffccf9 !important; }
+    .aprobado[data-nota="4"] { background-color: #ffb3e6 !important; }
+    .aprobado[data-nota="3"] { background-color: #ff99cc !important; }
+    .bloqueado {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚✨ Malla Interactiva Psicología ✨🎀</h1>
+  <div id="contenedor"></div>
+
+  <script>
+    const malla = [
+      { semestre: 1, asignaturas: [
+        { codigo: "PSIC001", nombre: "Enfoques psicológicos" },
+        { codigo: "PSIC002", nombre: "Bases biológicas del comportamiento" },
+        { codigo: "PSIC003", nombre: "Socioantropología" },
+        { codigo: "PSIC004", nombre: "Epistemología y filosofía" },
+        { codigo: "PSIC005", nombre: "Desarrollo personal e integración I" },
+        { codigo: "PSIC006", nombre: "Competencias transversales I" },
+        { codigo: "CTRAP I", nombre: "TICS" }
+      ]},
+      { semestre: 2, asignaturas: [
+        { codigo: "PSIC006A", nombre: "Procesos Psicológicos", requisitos: ["PSIC001"] },
+        { codigo: "PSIC007", nombre: "Ciclo Vital I" },
+        { codigo: "PSIC008", nombre: "Neuropsicología", requisitos: ["PSIC002"] },
+        { codigo: "PSIC009", nombre: "Bases sociales del Comportamiento", requisitos: ["PSIC003"] },
+        { codigo: "PSIC010", nombre: "Desarrollo personal e integración II", requisitos: ["PSIC005"] },
+        { codigo: "CTRAP III", nombre: "Competencias transversales II", requisitos: ["CTRAP I"] }
+      ]},
+      { semestre: 3, asignaturas: [
+        { codigo: "PSIC011", nombre: "Psicología de la Personalidad", requisitos: ["PSIC006A"] },
+        { codigo: "PSIC012", nombre: "Ciclo Vital II", requisitos: ["PSIC007"] },
+        { codigo: "PSIC013", nombre: "Psicopatología", requisitos: ["PSIC008"] },
+        { codigo: "PSIC014", nombre: "Metodología de la investigación", requisitos: ["PSIC004"] },
+        { codigo: "PSIC015", nombre: "Desarrollo personal e integración III", requisitos: ["PSIC010"] },
+        { codigo: "CTRAP IV", nombre: "Inglés I" }
+      ]},
