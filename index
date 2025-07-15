@@ -2,162 +2,123 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Malla Interactiva Psicología ULagos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Malla Psicología ULagos</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background: #f9f9f9;
+      background-color: #fff0f5;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      color: #333;
+      padding: 20px;
     }
     h1 {
       text-align: center;
+      color: #d63384;
     }
     .semestre {
-      margin-bottom: 20px;
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #ffe4f0;
+      border-radius: 15px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
-    .asignatura {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #eee;
+    .ramo {
       margin: 5px 0;
+      padding: 8px;
+      background-color: #ffffff;
+      border: 2px solid #d63384;
+      border-radius: 10px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
-    .aprobado[data-nota="7"] { background-color: #c8e6c9 !important; }
-    .aprobado[data-nota="6"] { background-color: #dcedc8 !important; }
-    .aprobado[data-nota="5"] { background-color: #fff9c4 !important; }
-    .aprobado[data-nota="4"] { background-color: #ffe0b2 !important; }
-    .aprobado[data-nota="3"] { background-color: #ffcdd2 !important; }
+    .ramo:hover {
+      background-color: #ffd1e9;
+    }
+    .aprobado {
+      background-color: #d0ffd6 !important;
+      border-color: #28a745;
+    }
     .bloqueado {
-      opacity: 0.5;
-      pointer-events: none;
+      background-color: #f8d7da !important;
+      border-color: #dc3545;
+      color: #aaa;
+      cursor: not-allowed;
     }
   </style>
 </head>
 <body>
-  <h1>Malla Interactiva Psicología ULagos</h1>
-  <div id="contenedor"></div>
-
+  <h1>🌸 Malla Interactiva Psicología ULagos 🌸</h1>
+  <div id="malla"></div>
+  
   <script>
     const malla = [
-      { semestre: 1, asignaturas: [
-        { codigo: "PSIC001", nombre: "Enfoques psicológicos" },
-        { codigo: "PSIC002", nombre: "Bases biológicas del comportamiento" },
-        { codigo: "PSIC003", nombre: "Socioantropología" },
-        { codigo: "PSIC004", nombre: "Epistemología y filosofía" },
-        { codigo: "PSIC005", nombre: "Desarrollo personal e integración I" },
-        { codigo: "PSIC006", nombre: "Competencias transversales I" },
-        { codigo: "CTRAP I", nombre: "TICS" }
-      ]},
-      { semestre: 2, asignaturas: [
-        { codigo: "PSIC006A", nombre: "Procesos Psicológicos", requisitos: ["PSIC001"] },
-        { codigo: "PSIC007", nombre: "Ciclo Vital I" },
-        { codigo: "PSIC008", nombre: "Neuropsicología", requisitos: ["PSIC002"] },
-        { codigo: "PSIC009", nombre: "Bases sociales del Comportamiento", requisitos: ["PSIC003"] },
-        { codigo: "PSIC010", nombre: "Desarrollo personal e integración II", requisitos: ["PSIC005"] },
-        { codigo: "CTRAP III", nombre: "Competencias transversales II", requisitos: ["CTRAP I"] }
-      ]},
-      { semestre: 3, asignaturas: [
-        { codigo: "PSIC011", nombre: "Psicología de la Personalidad", requisitos: ["PSIC006A"] },
-        { codigo: "PSIC012", nombre: "Ciclo Vital II", requisitos: ["PSIC007"] },
-        { codigo: "PSIC013", nombre: "Psicopatología", requisitos: ["PSIC008"] },
-        { codigo: "PSIC014", nombre: "Metodología de la investigación", requisitos: ["PSIC004"] },
-        { codigo: "PSIC015", nombre: "Desarrollo personal e integración III", requisitos: ["PSIC010"] },
-        { codigo: "CTRAP IV", nombre: "Inglés I" }
-      ]},
-      { semestre: 4, asignaturas: [
-        { codigo: "PSIC016", nombre: "Evaluación psicológica en niños y adolescentes", requisitos: ["PSIC007", "PSIC011"] },
-        { codigo: "PSIC017", nombre: "Evaluación psicológica en adultos", requisitos: ["PSIC012", "PSIC011"] },
-        { codigo: "PSIC018", nombre: "Psicología de grupos", requisitos: ["PSIC009"] },
-        { codigo: "PSIC019", nombre: "Estadística aplicada", requisitos: ["PSIC014", "PSIC015"] },
-        { codigo: "PSIC020", nombre: "Desarrollo personal e integración IV", requisitos: ["PSIC015"] },
-        { codigo: "CTRAP V", nombre: "Inglés II", requisitos: ["CTRAP IV"] }
-      ]},
-      { semestre: 5, asignaturas: [
-        { codigo: "PSIC021", nombre: "Psicología Organizacional", requisitos: ["PSIC017", "PSIC018"] },
-        { codigo: "PSIC022", nombre: "Psicología Social", requisitos: ["PSIC018"] },
-        { codigo: "PSIC023", nombre: "Métodos Cuantitativos de Investigación", requisitos: ["PSIC019"] },
-        { codigo: "PSICELEC1", nombre: "Electivo I" },
-        { codigo: "CTRAP VI", nombre: "Inglés III", requisitos: ["CTRAP V"] },
-        { codigo: "CTRAP VII", nombre: "Medio ambiente y desarrollo regional" }
-      ]},
-      { semestre: 6, asignaturas: [
-        { codigo: "PSIC024", nombre: "Psicología Clínica I", requisitos: ["PSIC016", "PSIC017"] },
-        { codigo: "PSIC025", nombre: "Psicología Educacional I", requisitos: ["PSIC016", "PSIC018"] },
-        { codigo: "PSIC026", nombre: "Gestión de personas", requisitos: ["PSIC021"] },
-        { codigo: "PSIC027", nombre: "Psicología Comunitaria", requisitos: ["PSIC022"] },
-        { codigo: "PSIC028", nombre: "Métodos Cualitativos de Investigación", requisitos: ["PSIC014"] },
-        { codigo: "CTRAP VIII", nombre: "Inglés IV", requisitos: ["CTRAP VI"] },
-        { codigo: "CTRAP IX", nombre: "Salud, autocuidado y desarrollo del estudiante", requisitos: ["CTRAP VII"] }
-      ]},
-      { semestre: 7, asignaturas: [
-        { codigo: "PSIC029", nombre: "Psicología Clínica II", requisitos: ["PSIC024"] },
-        { codigo: "PSIC030", nombre: "Psicología Educacional II", requisitos: ["PSIC025"] },
-        { codigo: "PSIC031", nombre: "Estrategias de intervención organizacional", requisitos: ["PSIC026"] },
-        { codigo: "PSIC032", nombre: "Estrategias de intervención socio-comunitaria", requisitos: ["PSIC027"] },
-        { codigo: "PSICELEC2", nombre: "Electivo II", requisitos: ["PSICELEC1"] }
-      ]},
-      { semestre: 8, asignaturas: [
-        { codigo: "PSIC033", nombre: "Estrategias de intervención clínica", requisitos: ["PSIC029"] },
-        { codigo: "PSIC034", nombre: "Estrategias de intervención psicoeducativa", requisitos: ["PSIC030"] },
-        { codigo: "PSIC035", nombre: "Seminario I", requisitos: ["PSIC032"] },
-        { codigo: "PSIC036", nombre: "Ética y rol del psicólogo", requisitos: ["PSIC020"] },
-        { codigo: "CTRAP X", nombre: "Emprendimiento e innovación", requisitos: ["CTRAP IX"] }
-      ]},
-      { semestre: 9, asignaturas: [
-        { codigo: "PSIC037", nombre: "Práctica Profesional I", requisitos: ["PSIC035"] },
-        { codigo: "PSIC038", nombre: "Seminario II", requisitos: ["PSIC035"] }
-      ]},
-      { semestre: 10, asignaturas: [
-        { codigo: "PSIC039", nombre: "Práctica Profesional II", requisitos: ["PSIC037"] },
-        { codigo: "PSIC040", nombre: "Examen de título", requisitos: ["PSIC039"] }
-      ]}
+      {
+        semestre: 1,
+        ramos: [
+          {codigo: "PSIC001", nombre: "Enfoques psicológicos"},
+          {codigo: "PSIC002", nombre: "Bases biológicas del comportamiento"},
+          {codigo: "PSIC003", nombre: "Socioantropología"},
+          {codigo: "PSIC004", nombre: "Epistemología y filosofía"},
+          {codigo: "PSIC005", nombre: "Desarrollo personal e integración I"},
+          {codigo: "PSIC006", nombre: "Competencias transversales I"},
+          {codigo: "CTRP I", nombre: "TICS"},
+        ]
+      },
+      {
+        semestre: 2,
+        ramos: [
+          {codigo: "PSIC006b", nombre: "Procesos Psicológicos", requisitos: ["PSIC001"]},
+          {codigo: "PSIC007", nombre: "Ciclo Vital I"},
+          {codigo: "PSIC008", nombre: "Neuropsicología", requisitos: ["PSIC002"]},
+          {codigo: "PSIC009", nombre: "Bases sociales del Comportamiento", requisitos: ["PSIC003"]},
+          {codigo: "PSIC010", nombre: "Desarrollo personal e integración II", requisitos: ["PSIC005"]},
+          {codigo: "CTRP III", nombre: "Competencias transversales II", requisitos: ["CTRP I"]},
+        ]
+      }
     ];
 
-    const estadoAsignaturas = {};
+    const estado = JSON.parse(localStorage.getItem("estadoMalla") || "{}")
 
-    function renderMalla() {
-      const contenedor = document.getElementById("contenedor");
+    function crearMalla() {
+      const contenedor = document.getElementById("malla");
       contenedor.innerHTML = "";
-
-      malla.forEach(({ semestre, asignaturas }) => {
-        const divSem = document.createElement("div");
-        divSem.className = "semestre";
-
+      malla.forEach(sem => {
+        const semDiv = document.createElement("div");
+        semDiv.className = "semestre";
         const h2 = document.createElement("h2");
-        h2.textContent = `Semestre ${semestre}`;
-        divSem.appendChild(h2);
+        h2.textContent = `Semestre ${sem.semestre}`;
+        semDiv.appendChild(h2);
 
-        asignaturas.forEach(asig => {
-          const divAsig = document.createElement("div");
-          divAsig.className = "asignatura";
-          divAsig.textContent = `${asig.codigo} - ${asig.nombre}`;
+        sem.ramos.forEach(ramo => {
+          const div = document.createElement("div");
+          div.className = "ramo";
+          div.textContent = `${ramo.codigo}: ${ramo.nombre}`;
 
-          const requisitosCumplidos = !asig.requisitos || asig.requisitos.every(r => estadoAsignaturas[r]);
-          if (!requisitosCumplidos) divAsig.classList.add("bloqueado");
+          const aprobado = estado[ramo.codigo];
+          const requisitosCumplidos = !ramo.requisitos || ramo.requisitos.every(r => estado[r]);
+          
+          if (aprobado) div.classList.add("aprobado");
+          else if (ramo.requisitos && !requisitosCumplidos) div.classList.add("bloqueado");
 
-          if (estadoAsignaturas[asig.codigo]) {
-            const nota = estadoAsignaturas[asig.codigo];
-            divAsig.classList.add("aprobado");
-            divAsig.setAttribute("data-nota", nota);
-            divAsig.textContent += ` (Nota: ${nota})`;
+          if (!div.classList.contains("bloqueado")) {
+            div.onclick = () => {
+              estado[ramo.codigo] = !estado[ramo.codigo];
+              localStorage.setItem("estadoMalla", JSON.stringify(estado));
+              crearMalla();
+            }
           }
 
-          divAsig.addEventListener("click", () => {
-            if (!requisitosCumplidos) return;
-            const nota = prompt("Ingresa la nota (1-7):");
-            if (nota >= 1 && nota <= 7) {
-              estadoAsignaturas[asig.codigo] = Math.floor(nota);
-              renderMalla();
-            }
-          });
-
-          divSem.appendChild(divAsig);
+          semDiv.appendChild(div);
         });
 
-        contenedor.appendChild(divSem);
+        contenedor.appendChild(semDiv);
       });
     }
+
+    crearMalla();
+  </script>
+</body>
+</html>
 
     renderMalla();
   </script>
