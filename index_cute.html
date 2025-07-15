@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>💖 Malla Psicología Cute ULagos 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      margin: 20px;
+      background: #fff0f6;
+      color: #4a2c2a;
+    }
+    h1 {
+      text-align: center;
+      color: #d63384;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+    }
+    .semestre {
+      margin-bottom: 30px;
+      background: #ffe6f0;
+      border-radius: 20px;
+      padding: 15px 20px;
+      box-shadow: 0 4px 8px rgba(255, 192, 203, 0.3);
+    }
+    .semestre h2 {
+      color: #c2185b;
+      border-bottom: 2px dashed #f8bbd0;
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+    }
+    .asignatura {
+      padding: 10px 15px;
+      border-radius: 15px;
+      background-color: #fce4ec;
+      border: 1px solid #f8bbd0;
+      margin: 8px 0;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    .asignatura:hover {
+      background-color: #f8bbd0;
+      transform: scale(1.02);
+    }
+    .aprobado[data-nota="7"] { background-color: #ffe3f3 !important; }
+    .aprobado[data-nota="6"] { background-color: #ffd6ec !important; }
+    .aprobado[data-nota="5"] { background-color: #ffccf9 !important; }
+    .aprobado[data-nota="4"] { background-color: #ffb3e6 !important; }
+    .aprobado[data-nota="3"] { background-color: #ff99cc !important; }
+    .bloqueado {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>📚✨ Malla Interactiva Psicología ✨🎀</h1>
+  <div id="contenedor"></div>
+
+  <script>
+    const malla = [
+      // Solo el semestre 1 como ejemplo para no repetir los 10 aquí
+      { semestre: 1, asignaturas: [
+        { codigo: "PSIC001", nombre: "Enfoques psicológicos" },
+        { codigo: "PSIC002", nombre: "Bases biológicas del comportamiento" },
+        { codigo: "PSIC003", nombre: "Socioantropología" },
+        { codigo: "PSIC004", nombre: "Epistemología y filosofía" },
+        { codigo: "PSIC005", nombre: "Desarrollo personal e integración I" },
+        { codigo: "PSIC006", nombre: "Competencias transversales I" },
+        { codigo: "CTRAP I", nombre: "TICS" }
+      ]},
+      // Aquí irían los semestres 2 a 10 completos (ver versión anterior)
+    ];
+
+    const estadoAsignaturas = {};
+
+    function renderMalla() {
+      const contenedor = document.getElementById("contenedor");
+      contenedor.innerHTML = "";
+
+      malla.forEach(({ semestre, asignaturas }) => {
+        const divSem = document.createElement("div");
+        divSem.className = "semestre";
+
+        const h2 = document.createElement("h2");
+        h2.textContent = `🌸 Semestre ${semestre}`;
+        divSem.appendChild(h2);
+
+        asignaturas.forEach(asig => {
+          const divAsig = document.createElement("div");
+          divAsig.className = "asignatura";
+          divAsig.textContent = `💗 ${asig.codigo} - ${asig.nombre}`;
+
+          const requisitosCumplidos = !asig.requisitos || asig.requisitos.every(r => estadoAsignaturas[r]);
+          if (!requisitosCumplidos) divAsig.classList.add("bloqueado");
+
+          if (estadoAsignaturas[asig.codigo]) {
+            const nota = estadoAsignaturas[asig.codigo];
+            divAsig.classList.add("aprobado");
+            divAsig.setAttribute("data-nota", nota);
+            divAsig.textContent += ` 💮 (Nota: ${nota})`;
+          }
+
+          divAsig.addEventListener("click", () => {
+            if (!requisitosCumplidos) return;
+            const nota = prompt("🌷 Ingresa tu nota (1-7):");
+            if (nota >= 1 && nota <= 7) {
+              estadoAsignaturas[asig.codigo] = Math.floor(nota);
+              renderMalla();
+            }
+          });
+
+          divSem.appendChild(divAsig);
+        });
+
+        contenedor.appendChild(divSem);
+      });
+    }
+
+    renderMalla();
+  </script>
+</body>
+</html>
